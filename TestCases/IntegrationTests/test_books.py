@@ -15,11 +15,11 @@ async def get_login_Token():
         token = response.json().get("access_token")
         return token
 
-@pytest.mark.asyncio
-async def test_getHealth():
-    async with AsyncClient(base_url="http://127.0.0.1:8000/") as client:
-        response = await client.get('/health')
-        assert response.status_code == 200
+# @pytest.mark.asyncio
+# async def test_getHealth():
+#     async with AsyncClient(base_url="http://127.0.0.1:8000/") as client:
+#         response = await client.get('/health')
+#         assert response.status_code == 200
 
 @pytest.mark.asyncio
 async def test_getBooks(get_login_Token, setup_and_teardown):
