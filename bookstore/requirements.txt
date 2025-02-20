@@ -12,3 +12,4 @@ pytest-xdist>=2.5.0
 httpx>=0.23.0
 codecov>=2.1.0
 pytest-asyncio
+httpx
