@@ -1,0 +1,78 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: windows-latest  
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+
+  unit-tests:
+    runs-on: windows-latest  
+    needs: setup
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8' 
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+
+    - name: Run unit tests with pytest and report code coverage
+      run: |
+        pip install pytest pytest-cov
+        python -m pytest --cov=bookstore --cov-report=xml
+
+  integration-tests:
+    runs-on: windows-latest 
+    needs: setup
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8' 
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python-m pip install -r requirements.txt
+
+    - name: Run integration tests with pytest
+      run: |
+        pip install pytest pytest-xdist
+        python -m pytest TestCases\Integration Tests --maxfail=1 --disable-warnings -q  
+
+  upload-coverage-report:
+    needs: unit-tests
+    runs-on: windows-latest  
+    steps:
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        file: coverage.xml  
