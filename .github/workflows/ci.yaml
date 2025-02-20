@@ -9,6 +9,29 @@ on:
       - main
 
 jobs:
+run-fastapi-server:
+    runs-on: windows-latest  
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r bookstore\requirements.txt
+
+      - name: Start FastAPI Server
+        run: |
+          uvicorn your_app.main:app --host 127.0.0.1 --port 8000 &
+        shell: bash
+
+
+
   setup:
     runs-on: windows-latest  
     steps:
