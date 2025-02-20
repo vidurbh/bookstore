@@ -66,7 +66,7 @@ jobs:
     - name: Run integration tests with pytest
       run: |
         pip install pytest pytest-xdist
-        python -m pytest TestCases\Integration Tests --maxfail=1 --disable-warnings -q  
+        python -m pytest TestCases\IntegrationTests --maxfail=1 --disable-warnings -q  
 
   upload-coverage-report:
     needs: unit-tests
