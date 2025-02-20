@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-run-fastapi-server:
+  run-fastapi-server:
     runs-on: windows-latest  
 
     steps:
