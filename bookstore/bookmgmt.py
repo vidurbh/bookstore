@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from .database import Book  # Assuming this is defined in your models.py
+from .database import Book 
 from .database import get_db
 from .middleware import JWTBearer
 
