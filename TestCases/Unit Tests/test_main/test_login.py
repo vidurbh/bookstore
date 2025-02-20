@@ -6,8 +6,6 @@ from bookstore.main import app
 from passlib.context import CryptContext
 
 
-
-
 client=TestClient(app)
 pwd=CryptContext(schemes=["bcrypt"], deprecated="auto")
 mockDb=MagicMock()
@@ -20,7 +18,6 @@ def mockUser():
 
 def test_LoginSuccess(mockUser):
     mockDb.query.return_value.filter.return_value.first.return_value=mockUser
-
     response=client.post('/login', json={"email":"test@abc.com","password":"Test91@"})
     if response.status_code==200:
             if "access_token" in response.json():
