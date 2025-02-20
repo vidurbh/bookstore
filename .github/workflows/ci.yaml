@@ -27,7 +27,7 @@ run-fastapi-server:
 
       - name: Start FastAPI Server
         run: |
-          uvicorn your_app.main:app --host 127.0.0.1 --port 8000 &
+          uvicorn bookstore.main:app --host 127.0.0.1 --port 8000 &
         shell: bash
 
 
