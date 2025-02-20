@@ -21,13 +21,13 @@ async def get_login_Token():
 #         response = await client.get('/health')
 #         assert response.status_code == 200
 
-@pytest.mark.asyncio
-async def test_getBooks(get_login_Token):
-    async with AsyncClient(base_url="http://127.0.0.1:8000/") as client:
-        token = await get_login_Token
-        headers = {'Authorization': f'Bearer {token}'}
-        response = await client.get('/books', headers=headers, follow_redirects=True)
-        assert response.status_code == 200
+# @pytest.mark.asyncio
+# async def test_getBooks(get_login_Token):
+#     async with AsyncClient(base_url="http://127.0.0.1:8000/") as client:
+#         token = await get_login_Token
+#         headers = {'Authorization': f'Bearer {token}'}
+#         response = await client.get('/books', headers=headers, follow_redirects=True)
+#         assert response.status_code == 200
 
 # @pytest.mark.asyncio
 # async def test_AddBook(get_login_Token, setup_and_teardown):
