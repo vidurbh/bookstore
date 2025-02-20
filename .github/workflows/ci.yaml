@@ -30,6 +30,13 @@ jobs:
           uvicorn bookstore.main:app --host 127.0.0.1 --port 8000 &
         shell: bash
 
+      - name: Wait for FastAPI to be ready
+        run: |
+          sleep 5 
+
+      - name: Run tests
+        run: pytest --capture=sys --disable-warnings  
+
 
 
   setup:
