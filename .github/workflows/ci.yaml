@@ -50,12 +50,12 @@ jobs:
       - name: Run Unit Tests with pytest and report code coverage
         run: |
           pip install pytest pytest-cov
-          python -m pytest --cov=bookstore --cov-report=xml
+          python -m pytest --cov=bookstore
 
       - name: Run Integration Tests with pytest
         run: |
           pip install pytest pytest-xdist
-          python -m pytest "TestCases/IntegrationTests" --maxfail=1 --disable-warnings -q
+          python -m pytest -s "TestCases/IntegrationTests" 
 
   upload-coverage-report:
     needs: tests
