@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock
+import bcrypt
 from fastapi.testclient import TestClient
 import pytest
 from bookstore.database import UserCredentials, get_db
@@ -11,18 +12,22 @@ pwd=CryptContext(schemes=["bcrypt"], deprecated="auto")
 mockDb=MagicMock()
 app.dependency_overrides[get_db]=lambda:mockDb
 
+ 
+
 @pytest.fixture
 def mockUser():
-   print("Entered inside mockUser")
-   return UserCredentials(email='test@abc.com',password=pwd.hash("Test91@"))
+    print("Entered inside mockUser")
+    plain_password = "Test91@"
+    hashed_password = bcrypt.hashpw(plain_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    return UserCredentials(email='test@abc.com',password=hashed_password)
 
 def test_LoginSuccess(mockUser):
     mockDb.query.return_value.filter.return_value.first.return_value=mockUser
+
     response=client.post('/login', json={"email":"test@abc.com","password":"Test91@"})
     if response.status_code==200:
             if "access_token" in response.json():
                 print("Test Case Passed")
-
             else:
                 assert False, "Test Case Failed since access_token not found"
     else:
