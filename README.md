@@ -11,18 +11,12 @@
 
 ## Running Tests
 
-To execute all the testcases together first install pytest-xdist using the following command
-
-python -m pip install pytest-xdist
-
-To run locally install the requirements and run the following command
+To run locally install the requirements from requirements.txt and run the following command
 
 python -m pytest -s .\TestCases\path_to_testcase
 
 (e.g python -m pytest -s .\TestCases\UnitTests\test_main\test_login.py)
 
-Then Use
-python -m pytest -n auto 
 
 ## Challenges faced while writing Tests
 
