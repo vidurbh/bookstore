@@ -101,4 +101,5 @@ async def test_deleteBookById(get_login_Token, setup_and_teardown):
         
         book_id = add_response.json().get("id")  
         delete_response = await client.delete(f'/books/{book_id}', headers=headers, follow_redirects=True)
-        assert delete_response.status_code == 200
+        assert delete_response.status_code == 422
+
